@@ -3,6 +3,7 @@ package org.fdifrison.webflux101.controller;
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.service.ReactiveMathService;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.json.AbstractJackson2Encoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +28,14 @@ public class ReactiveMathController {
         return service.findSquare(input);
     }
 
+    // we have to wait for the process to finish consuming data,
+    // but we can still cancel the subscription during the processing
     @GetMapping("/table/{input}")
     public Flux<Response> findMultiplicationTable(@PathVariable int input) {
+        // AbstractJackson2Encoder:
+        // this is the class responsible to collect the data into an array if no "produces"
+        // option is provided in the getMapping.
+        // On the onComplete signal, the encoder will wrap the items into an array and serve it to the browser
         return this.service.findMultiplicationTable(input);
     }
 

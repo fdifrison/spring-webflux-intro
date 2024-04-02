@@ -14,6 +14,9 @@ public class MathService {
         return new Response(input * input);
     }
 
+    // another advantage of reactive is that as soon as the browser (consumers) cancel the subscription,
+    // the computation required for the emission of items will be stopped,
+    // since the back-end is immediately aware of the state of the subscriber
     public List<Response> findMultiplicationTable(int input) {
         return IntStream.rangeClosed(1, 10)
                 .peek(i -> SleepUtil.sleepSeconds(1)) // simulating a time-consuming task
