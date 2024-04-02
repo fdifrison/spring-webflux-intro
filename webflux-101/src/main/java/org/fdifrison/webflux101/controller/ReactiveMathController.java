@@ -2,6 +2,7 @@ package org.fdifrison.webflux101.controller;
 
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.service.ReactiveMathService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,4 +31,11 @@ public class ReactiveMathController {
     public Flux<Response> findMultiplicationTable(@PathVariable int input) {
         return this.service.findMultiplicationTable(input);
     }
+
+    // as a stream, we send values to the browser as soon as they are ready
+    @GetMapping(value = "/table/{input}/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Response> findMultiplicationTableStream(@PathVariable int input) {
+        return this.service.findMultiplicationTable(input);
+    }
+
 }
