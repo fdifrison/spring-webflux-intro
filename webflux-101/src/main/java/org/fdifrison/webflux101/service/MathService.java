@@ -17,7 +17,7 @@ public class MathService {
     public List<Response> findMultiplicationTable(int input) {
         return IntStream.rangeClosed(1, 10)
                 .peek(i -> SleepUtil.sleepSeconds(1)) // simulating a time-consuming task
-                .peek(i -> System.out.println("mathService processing -> " + i))
+                .peek(i -> System.out.println("MathService processing -> " + i))
                 .mapToObj(i -> new Response(i * input))
                 .collect(Collectors.toList());
     }
