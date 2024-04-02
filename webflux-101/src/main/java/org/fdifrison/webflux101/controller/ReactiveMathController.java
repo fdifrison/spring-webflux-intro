@@ -4,7 +4,6 @@ import org.fdifrison.webflux101.dto.MultiplyRequest;
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.service.ReactiveMathService;
 import org.springframework.http.MediaType;
-import org.springframework.http.codec.json.AbstractJackson2Encoder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -47,7 +46,7 @@ public class ReactiveMathController {
     // This will depend on the fact that the body object might be big and need to be served asynchronously
     @PostMapping("multiply")
     public Mono<Response> multiply(@RequestBody Mono<MultiplyRequest> dto) {
-       return this.service.multiply(dto);
+        return this.service.multiply(dto);
     }
 
 }
