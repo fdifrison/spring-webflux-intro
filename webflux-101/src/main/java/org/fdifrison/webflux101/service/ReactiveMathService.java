@@ -1,5 +1,6 @@
 package org.fdifrison.webflux101.service;
 
+import org.fdifrison.webflux101.dto.MultiplyRequest;
 import org.fdifrison.webflux101.dto.Response;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -24,6 +25,12 @@ public class ReactiveMathService {
                 .delayElements(Duration.ofSeconds(1)) // non-blocking sleeps
                 .doOnNext(i -> System.out.println("ReactiveMathService processing -> " + i))
                 .map(i -> i * input)
+                .map(Response::new);
+    }
+
+    public Mono<Response> multiply(Mono<MultiplyRequest> dtoMono) {
+        return dtoMono
+                .map(dto -> dto.first() * dto.second())
                 .map(Response::new);
     }
 

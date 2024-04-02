@@ -1,13 +1,11 @@
 package org.fdifrison.webflux101.controller;
 
+import org.fdifrison.webflux101.dto.MultiplyRequest;
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.service.ReactiveMathService;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.json.AbstractJackson2Encoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -43,6 +41,13 @@ public class ReactiveMathController {
     @GetMapping(value = "/table/{input}/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Response> findMultiplicationTableStream(@PathVariable int input) {
         return this.service.findMultiplicationTable(input);
+    }
+
+    // We can have both Mono<MultiplyRequest> or MultiplyRequest as body parameters;
+    // This will depend on the fact that the body object might be big and need to be served asynchronously
+    @PostMapping("multiply")
+    public Mono<Response> multiply(@RequestBody Mono<MultiplyRequest> dto) {
+       return this.service.multiply(dto);
     }
 
 }
