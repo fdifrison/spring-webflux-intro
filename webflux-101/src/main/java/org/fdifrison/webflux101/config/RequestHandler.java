@@ -3,6 +3,7 @@ package org.fdifrison.webflux101.config;
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.service.ReactiveMathService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -28,5 +29,13 @@ public class RequestHandler {
         int input = Integer.parseInt(serverRequest.pathVariable("input"));
         Flux<Response> multiplicationTable = service.findMultiplicationTable(input);
         return ServerResponse.ok().body(multiplicationTable, Response.class);
+    }
+
+    public Mono<ServerResponse> tableStreamHandler(ServerRequest serverRequest) {
+        int input = Integer.parseInt(serverRequest.pathVariable("input"));
+        Flux<Response> multiplicationTable = service.findMultiplicationTable(input);
+        return ServerResponse.ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(multiplicationTable, Response.class);
     }
 }
