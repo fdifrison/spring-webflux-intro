@@ -21,6 +21,7 @@ public class RouterConfig {
                 .GET("router/square/{input}", handler::squareHandler)
                 .GET("router/table/{input}", handler::tableHandler)
                 .GET("router/tableStream/{input}", handler::tableStreamHandler)
+                .POST("router/multiply", handler::multiplyHandler)
                 .build();
     }
 
