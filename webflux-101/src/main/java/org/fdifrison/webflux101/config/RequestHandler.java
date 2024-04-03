@@ -1,0 +1,32 @@
+package org.fdifrison.webflux101.config;
+
+import org.fdifrison.webflux101.dto.Response;
+import org.fdifrison.webflux101.service.ReactiveMathService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@Component
+public class RequestHandler {
+
+    private final ReactiveMathService service;
+
+    public RequestHandler(ReactiveMathService service) {
+        this.service = service;
+    }
+
+    public Mono<ServerResponse> squareHandler(ServerRequest serverRequest) {
+        int input = Integer.parseInt(serverRequest.pathVariable("input"));
+        Mono<Response> square = service.findSquare(input);
+        return ServerResponse.ok().body(square, Response.class);
+    }
+
+    public Mono<ServerResponse> tableHandler(ServerRequest serverRequest) {
+        int input = Integer.parseInt(serverRequest.pathVariable("input"));
+        Flux<Response> multiplicationTable = service.findMultiplicationTable(input);
+        return ServerResponse.ok().body(multiplicationTable, Response.class);
+    }
+}
