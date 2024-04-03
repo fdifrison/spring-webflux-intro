@@ -1,11 +1,9 @@
 package org.fdifrison.webflux101.config;
 
-import org.fdifrison.webflux101.dto.InputFailedValidationResponse;
 import org.fdifrison.webflux101.dto.MultiplyRequest;
 import org.fdifrison.webflux101.dto.Response;
 import org.fdifrison.webflux101.exception.InputValidationException;
 import org.fdifrison.webflux101.service.ReactiveMathService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

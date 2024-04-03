@@ -30,7 +30,7 @@ public class ReactiveMathValidationController {
     @GetMapping("/square/{input}/throw-mono")
     public Mono<Response> monoError(@PathVariable int input) {
         return Mono.just(input)
-                .handle((integer, sink) ->  {
+                .handle((integer, sink) -> {
                     if (integer >= 10 && integer <= 20)
                         sink.next(integer);
                     else
@@ -43,7 +43,7 @@ public class ReactiveMathValidationController {
     @GetMapping("/square/{input}/badReq")
     public Mono<ResponseEntity<Response>> badRequest(@PathVariable int input) {
         return Mono.just(input)
-                .filter(i -> i >=10 && i <= 20)
+                .filter(i -> i >= 10 && i <= 20)
                 .flatMap(service::findSquare)
                 .map(ResponseEntity::ok)
                 // if we are here, it means we are going to emit an onEmpty signal
