@@ -36,8 +36,8 @@ public class RouterConfig {
     private BiFunction<Throwable, ServerRequest, Mono<ServerResponse>> exceptionHandler() {
         return (err, req) -> {
             InputValidationException ex = (InputValidationException) err;
-            InputFailedValidationResponse response = new InputFailedValidationResponse(ex.getInput(),
-                    ex.getErrorCode(), ex.getMessage());
+            InputFailedValidationResponse response =
+                    new InputFailedValidationResponse( ex.getErrorCode(), ex.getInput(), ex.getMessage());
             return ServerResponse.badRequest().bodyValue(response);
         };
     }
