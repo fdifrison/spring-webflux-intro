@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: "product-service"
+
+#  data:
+#    mongodb:
+#      database: product-db
+#      host: 127.0.0.1
+#      port: 27071
+#      authentication-database: admin
+
+
+server:
+  port: 8091
