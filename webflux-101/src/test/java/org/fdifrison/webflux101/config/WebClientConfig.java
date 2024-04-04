@@ -11,6 +11,7 @@ public class WebClientConfig {
     public WebClient webClient() {
         return WebClient.builder()
                 .baseUrl("http://localhost:8080")
+                .defaultHeaders(h -> h.setBasicAuth("user", "pwd"))
                 .build();
     }
 }
