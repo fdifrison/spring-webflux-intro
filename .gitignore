@@ -37,3 +37,4 @@ out/
 .vscode/
 /product-service/mongo/
 /product-service/target/
+/user-service/src/docker-volume/

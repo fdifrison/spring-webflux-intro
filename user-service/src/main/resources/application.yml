@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: user-service
+
+
+  r2dbc:
+    password: admin
+    username: fdifrison
+    url: r2dbc:postgresql://localhost:5432/user-db
+
+server:
+  port: 8092
