@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
+
 @Service
 public class ProductService implements IProductService {
 
@@ -24,6 +26,21 @@ public class ProductService implements IProductService {
     @Override
     public Mono<ProductDto> getProductById(String id) {
         return repository.findById(id).map(EntityDtoMapper::toDto);
+    }
+
+    @Override
+    public Flux<ProductDto> getProductsByPrice(BigDecimal price) {
+        return repository.findProductsByPrice(price);
+    }
+
+    @Override
+    public Flux<ProductDto> getProductsByPriceBetween(BigDecimal min, BigDecimal max) {
+        return repository.findProductsByPriceBetween(min, max);
+    }
+
+    @Override
+    public Flux<ProductDto> getProductsByPriceRange(BigDecimal min, BigDecimal max) {
+        return repository.findProductsByPriceRange(min, max);
     }
 
     @Override
