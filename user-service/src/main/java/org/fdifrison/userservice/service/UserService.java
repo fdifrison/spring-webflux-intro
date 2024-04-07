@@ -39,23 +39,19 @@ class UserService implements IUserService {
     public Mono<Boolean> updateUser(Integer id, UserDto user) {
         return repository.findById(id)
                 .flatMap(updatedUser -> {
-                    if (updatedUser != null) {
-                        updatedUser.setName(user.name());
-                        updatedUser.setBalance(user.balance());
-                        return this.repository.save(updatedUser).map(u -> true);
-                    } else
-                        return Mono.just(false);
-                });
+                    updatedUser.setName(user.name());
+                    updatedUser.setBalance(user.balance());
+                    return this.repository.save(updatedUser).map(u -> true);
+                })
+                .defaultIfEmpty(false);
+
     }
 
     @Override
     public Mono<Boolean> deleteUser(Integer id) {
         return repository.findById(id)
-                .flatMap(updatedUser -> {
-                    if (updatedUser != null) {
-                        return this.repository.delete(updatedUser).then(Mono.just(true));
-                    } else
-                        return Mono.just(false);
-                });
+                .flatMap(updatedUser -> this.repository.delete(updatedUser).then(Mono.just(true)))
+                .defaultIfEmpty(false);
+
     }
 }

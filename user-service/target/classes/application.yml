@@ -7,6 +7,13 @@ spring:
     password: admin
     username: fdifrison
     url: r2dbc:postgresql://localhost:5432/user-db
+    name: user-db
+  sql:
+    init:
+      data-locations: schema.sql
+  jpa:
+    show-sql: true
+
 
 server:
   port: 8092

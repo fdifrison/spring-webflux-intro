@@ -13,6 +13,6 @@ import java.math.BigDecimal;
 public interface UserRepository extends ReactiveCrudRepository<User, Integer> {
 
     @Modifying // important notation to methods that don't return the modified entity
-    @Query("update user set balance = balance - :amount where user.id = :userId and balance >= : amount")
+    @Query("update users set balance = balance - :amount where id = :userId and balance >= :amount")
     Mono<Boolean> updateUserBalance(int userId, BigDecimal amount);
 }

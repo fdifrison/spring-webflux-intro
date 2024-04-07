@@ -21,10 +21,11 @@ public class UserController {
     }
 
     @GetMapping("all")
-    public Flux<ResponseEntity<UserDto>> getAllUsers() {
-        return service.getUsers().map(user -> ResponseEntity.ok().body(user))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+    public ResponseEntity<Flux<UserDto>> getAllUsers() {
+        Flux<UserDto> usersFlux = service.getUsers();
+        return ResponseEntity.ok().body(usersFlux);
     }
+
 
     @GetMapping("{id}")
     public Mono<ResponseEntity<UserDto>> getUserById(@PathVariable Integer id) {
@@ -59,9 +60,16 @@ public class UserController {
 
     @DeleteMapping("{id}")
     public Mono<ResponseEntity<ResponseDto>> deleteUser(@PathVariable Integer id) {
-        return service.deleteUser(id).map(deleted -> deleted ?
-                ResponseEntity.ok().body(new ResponseDto(OK.toString(), OK.getReasonPhrase())) :
-                ResponseEntity.badRequest().body(new ResponseDto(NOT_FOUND.toString(), NOT_FOUND.getReasonPhrase())));
+        return service.deleteUser(id)
+                .filter(Boolean::booleanValue)
+                .map(deleted ->
+                        ResponseEntity
+                                .ok()
+                                .body(new ResponseDto(OK.toString(), OK.getReasonPhrase())))
+                .defaultIfEmpty(ResponseEntity
+                        .badRequest()
+                        .body(new ResponseDto(NOT_FOUND.toString(), NOT_FOUND.getReasonPhrase())));
+
     }
 
 

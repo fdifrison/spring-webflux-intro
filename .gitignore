@@ -38,3 +38,4 @@ out/
 /product-service/mongo/
 /product-service/target/
 /user-service/src/docker-volume/
+/user-service/docker-volume/
