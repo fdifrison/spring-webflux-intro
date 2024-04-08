@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: order-service
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:54322/order-db
+    username: fdifrison
+    password: admin
+
+
+
+product:
+  service:
+    url: http://localhost:8091/product/
+
+user:
+  service:
+    url: http://localhost:8092/user/
+
+server:
+  port: 8093
