@@ -1,5 +1,6 @@
 package org.fdifrison.userservice.service;
 
+import org.fdifrison.userservice.dto.TransactionDto;
 import org.fdifrison.userservice.dto.TransactionRequestDto;
 import org.fdifrison.userservice.dto.TransactionResponseDto;
 import org.fdifrison.userservice.dto.TransactionStatus;
@@ -8,6 +9,7 @@ import org.fdifrison.userservice.repository.UserRepository;
 import org.fdifrison.userservice.util.TransactionMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -34,5 +36,10 @@ class TransactionService implements ITransactionService {
                 .defaultIfEmpty(TransactionMapper.requestToResponse(req, TransactionStatus.DECLINED))
         );
 
+    }
+
+    @Override
+    public Flux<TransactionDto> getTransactionsByUserId(Integer userId) {
+        return this.transactionRepository.findAllByUserId(userId).map(TransactionMapper::toDto);
     }
 }

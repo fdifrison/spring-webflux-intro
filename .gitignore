@@ -39,3 +39,4 @@ out/
 /product-service/target/
 /user-service/src/docker-volume/
 /user-service/docker-volume/
+/user-service/target/

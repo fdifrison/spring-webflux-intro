@@ -6,7 +6,7 @@ spring:
   r2dbc:
     password: admin
     username: fdifrison
-    url: r2dbc:postgresql://localhost:5432/user-db
+    url: r2dbc:postgresql://localhost:54321/user-db
     name: user-db
   sql:
     init:

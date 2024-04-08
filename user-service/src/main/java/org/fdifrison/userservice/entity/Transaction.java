@@ -17,7 +17,9 @@ public class Transaction {
     private BigDecimal amount;
     private LocalDateTime transactionDate;
 
-    public Transaction(Integer integer, BigDecimal amount) {
-        this.transactionDate = LocalDateTime.now();
+    public Transaction(Integer userId, BigDecimal amount, LocalDateTime transactionDate) {
+        this.userId = userId;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
     }
 }
