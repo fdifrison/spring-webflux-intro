@@ -1,4 +1,4 @@
-package org.fdifrison.webflux101;
+package org.fdifrison.webflux101.webclient;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.web.util.UriComponentsBuilder;

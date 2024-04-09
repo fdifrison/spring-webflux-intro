@@ -1,4 +1,4 @@
-package org.fdifrison.webflux101;
+package org.fdifrison.webflux101.webclient;
 
 import org.fdifrison.webflux101.dto.InputFailedValidationResponse;
 import org.fdifrison.webflux101.dto.Response;

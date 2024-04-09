@@ -12,7 +12,7 @@ public class WebClientConfig {
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:8080")
+                .baseUrl("http://localhost:9999")
                 //                .defaultHeaders(h -> h.setBasicAuth("user", "pwd"))
                 //                .filter(sessionTokenGenerator())
                 .filter(chooseSessionToken())
