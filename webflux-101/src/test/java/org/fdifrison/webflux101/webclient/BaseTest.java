@@ -1,4 +1,4 @@
-package org.fdifrison.webflux101;
+package org.fdifrison.webflux101.webclient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
