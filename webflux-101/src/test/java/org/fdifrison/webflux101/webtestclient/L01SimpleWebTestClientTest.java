@@ -1,5 +1,6 @@
 package org.fdifrison.webflux101.webtestclient;
 
+import org.assertj.core.api.Assertions;
 import org.fdifrison.webflux101.dto.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class L01SimpleWebTestClientTest {
     private WebTestClient webTestClient;
 
     @Test
-    public void blockTest() {
+    public void test() {
 
         Flux<Response> response = this.webTestClient
                 .get()
@@ -35,6 +36,25 @@ public class L01SimpleWebTestClientTest {
         StepVerifier.create(response)
                 .expectNextMatches(i -> i.output() == 25)
                 .verifyComplete();
+
+    }
+
+    @Test
+    public void fluentAssertionTest() {
+
+        this.webTestClient
+                .get()
+                .uri("/r-math/square/{input}", 5)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful() // any 2xx is ok
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody(Response.class)
+                .value(response -> {
+                    Assertions.assertThat(response.output()).isEqualTo(25);
+                });
+
 
     }
 }
