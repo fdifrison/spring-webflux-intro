@@ -4,6 +4,7 @@ import com.example.orderservice.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -21,5 +22,13 @@ public class ProductClient {
                 .uri("{id}", id)
                 .retrieve()
                 .bodyToMono(ProductDto.class);
+    }
+
+    public Flux<ProductDto> getAllProducts() {
+        return this.webClient
+                .get()
+                .uri("all")
+                .retrieve()
+                .bodyToFlux(ProductDto.class);
     }
 }
