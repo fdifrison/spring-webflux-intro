@@ -10,6 +10,9 @@ import com.example.orderservice.util.DtoUtil;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+import reactor.util.retry.Retry;
+
+import java.time.Duration;
 
 @Service
 public class OrderFulfillmentService {
@@ -51,6 +54,7 @@ public class OrderFulfillmentService {
     private Mono<RequestContext> productRequestResponse(RequestContext requestContext) {
         return this.productClient.getProductById(requestContext.getOrderRequest().productId())
                 .doOnNext(requestContext::setProduct)
+                .retryWhen(Retry.fixedDelay(5, Duration.ofSeconds(1)))
                 .thenReturn(requestContext);
 
     }
@@ -58,6 +62,7 @@ public class OrderFulfillmentService {
     private Mono<RequestContext> userRequestResponse(RequestContext requestContext) {
         return this.userClient.authorizeTransaction(requestContext.getTransactionRequest())
                 .doOnNext(requestContext::setTransactionResponse)
+                .retryWhen(Retry.fixedDelay(5, Duration.ofSeconds(1)))
                 .thenReturn(requestContext);
     }
 }
