@@ -6,6 +6,7 @@ import org.fdifrison.productservice.util.EntityDtoMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
 
 import java.math.BigDecimal;
 
@@ -14,8 +15,11 @@ public class ProductService implements IProductService {
 
     private final ProductRepository repository;
 
-    public ProductService(ProductRepository repository) {
+    private final Sinks.Many<ProductDto> productSink;
+
+    public ProductService(ProductRepository repository, Sinks.Many<ProductDto> productSink) {
         this.repository = repository;
+        this.productSink = productSink;
     }
 
     @Override
@@ -48,7 +52,8 @@ public class ProductService implements IProductService {
         return dtoMono
                 .map(EntityDtoMapper::toEntity)
                 .flatMap(this.repository::insert)
-                .map(EntityDtoMapper::toDto);
+                .map(EntityDtoMapper::toDto)
+                .doOnNext(this.productSink::tryEmitNext);
     }
 
     @Override

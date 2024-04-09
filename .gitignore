@@ -42,3 +42,4 @@ out/
 /user-service/target/
 /docker-volume/
 /*/target/
+/mongo/
