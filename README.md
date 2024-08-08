@@ -1,6 +1,6 @@
 # spring-webflux-intro
 
-Intro to SpringWebFlux in microservices architecture
+Intro to WebFlux in microservices architecture
 
 * product-service: reactive service connected to mongo-db
 * user-service: reactive service using R2DBC drivers with postgresql
