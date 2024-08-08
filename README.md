@@ -1,4 +1,4 @@
-# SpringWebFlux
+# spring-webflux-intro
 
 Intro to SpringWebFlux in microservices architecture
 
